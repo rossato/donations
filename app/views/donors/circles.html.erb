@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Donors by Circle</h1>
+
+<% circle = 1; @circles.each do |donors| %>
+<h2>Circle <%= circle %></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Qualifying amount</th>
+      <th>Year</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% donors.each do |donor| %>
+      <tr>
+        <td>
+          <% if (donor.anonymous) %>
+          Anonymous (<%= link_to donor.full_name, donor %>)
+          <% else %>
+          <%= link_to donor.full_name, donor %>
+          <% end %>
+        </td>
+        <td><%= number_to_currency(donor.total_amount) %></td>
+        <td><%= donor.year %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% circle += 1; end %>
+
+<p><%= link_to 'Home', root_path %></p>

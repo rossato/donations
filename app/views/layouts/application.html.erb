@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Welcome to OpenShift</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>SDS Donor Database</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<%= yield %>
 
-  <body>
-    <%= yield %>
-  </body>
+<% if @current_user %>
+<p><em>Currently logged in as <%= link_to @current_user.name, @current_user %>.  <%= link_to 'Logout', logout_path, :method => :post %>.</em></p>
+<% end %>
+</body>
 </html>

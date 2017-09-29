@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Mailable Donors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Last name</th>
+      <th>Full name</th>
+      <th>Solicitation</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Singer</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donors.each do |donor| %>
+    <% if donor.update_address %>
+      <% @warn_addresses = true %>
+      <tr style="color: red">
+    <% else %>
+      <tr>
+    <% end %>
+        <td><%= donor.last_name %></td>
+        <td><%= link_to donor.full_name, donor %></td>
+        <td><%= donor.solicitation %></td>
+        <td><%= donor.address %></td>
+        <td><%= donor.city %></td>
+        <td><%= donor.state %></td>
+        <td><%= donor.zip %></td>
+        <td><%= donor.singer %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% if @warn_addresses %>
+<p style="color: red">Update addresses in red before mailing!</p>
+<% end %>
+<p>
+  <%= link_to 'Above data as a csv file', mailing_list_donors_path(:csv) %> |
+  <%= link_to 'Home', root_path %>
+</p>

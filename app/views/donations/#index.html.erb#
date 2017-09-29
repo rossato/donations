@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Donations</h1>
+
+<% if @year %>
+<p>For the calendar year <%= @year %> (<%= link_to 'all', donations_by_singer_path %>)</p>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Donor</th>
+      <th>Amount</th>
+      <th>Comment</th>
+      <th>Thanked</th>
+      <th>Is a Match</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donations.each do |donation| %>
+      <tr>      
+        <td><%= donation.date %></td>
+        <% if (donation.donor) %>
+        <td><%= link_to donation.donor.full_name, donation.donor %></td>
+        <% else %>
+        <td>(deleted donor)</td>
+        <% end %>
+        <td><%= number_to_currency(donation.amount) %></td>
+        <td><%= donation.comment %></td>
+        <td><%= donation.thanked %></td>
+        <td><%= donation.match %></td>
+        <td><%= link_to 'Edit', edit_donor_donation_path(donation.donor_id, donation) %></td>
+        <td><%= link_to 'Destroy', donor_donation_path(donation.donor_id, donation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p><%= link_to 'Home', root_path %></p>

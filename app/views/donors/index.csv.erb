@@ -1,0 +1,4 @@
+id, last_name, full_name, solicitation, address, city, state, zip, phone, email, relationship, singer, comment, anonymous, update_address, do_not_contact
+<% @donors.each do |donor| %>
+<%= donor.id %>, <%= donor.last_name %>, <%= donor.full_name %>, <%= donor.solicitation %>, <%= donor.address %>, <%= donor.city %>, <%= donor.state %>, <%= donor.zip %>, <%= donor.phone %>, <%= donor.email %>, <%= donor.relationship %>, <%= donor.singer %>, <%= donor.comment %>, <%= donor.anonymous %>, <%= donor.update_address %>, <%= donor.do_not_contact %>
+<% end %>

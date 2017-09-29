@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Donations by Singer</h1>
+
+<% if @year %>
+<p>For the calendar year <%= @year %> (<%= link_to 'all', donations_by_singer_path %>)</p>
+<% end %>
+<p><em>(not including corporate matches)</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>Singer</th>
+      <th>Date</th>
+      <th>Donor</th>
+      <th>Amount</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donations.each do |donation| %>
+    <tr>
+      <td><%= donation.singer %></td>
+      <td><%= donation.date %></td>
+      <td><%= link_to donation.full_name, donation.donor %></td>
+      <td><%= number_to_currency(donation.amount) %></td>
+      <td><%= link_to 'Edit', edit_donor_donation_path(donation.donor, donation) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<p><%= link_to 'Home', root_path %></p>

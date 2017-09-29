@@ -1,0 +1,10 @@
+<h1>Editing Donation</h1>
+
+<p>
+  <strong>Donor: </strong><%= @donor.full_name %>
+</p>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [@donor, @donation] %> |
+<%= link_to 'Back', @donor %>

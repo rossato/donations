@@ -1,0 +1,8 @@
+id, date, donor_id, donor_name, amount, comment, thanked, is_a_match
+<% @donations.each do |donation| %>
+<% if (donation.donor) %>
+<%= donation.id %>, <%= donation.date %>, <%= donation.donor_id %>, <%= donation.donor.full_name %>, <%= number_to_currency(donation.amount) %>, <%= donation.comment %>, <%= donation.thanked %>, <%= donation.match %>
+<% else %>
+<%= donation.id %>, <%= donation.date %>, <%= donation.donor_id %>, (donor deleted), <%= number_to_currency(donation.amount) %>, <%= donation.comment %>, <%= donation.thanked %>, <%= donation.match %>
+<% end %>
+<% end %>

@@ -1,0 +1,4 @@
+full_name, solicitation, address, city, state, zip, amount, total_amount
+<% @donations.each do |donation| %>
+<%= donation.full_name %>, <%= donation.solicitation %>, <%= donation.address %>, <%= donation.city %>, <%= donation.state %>, <%= donation.zip %>, <%= number_to_currency(donation.amount) %>, <%= number_to_currency(donation.ytd_amount) %>
+<% end %>

@@ -1,0 +1,4 @@
+full_name, solicitation, address, city, state, zip, singer
+<% @donors.each do |donor| %>
+<%= donor.full_name %>, <%= donor.solicitation %>, <%= donor.address %>, <%= donor.city %>, <%= donor.state %>, <%= donor.zip %>, <%= donor.singer %>
+<% end %>

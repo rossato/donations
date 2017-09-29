@@ -1,0 +1,115 @@
+<h1><%= @donor.full_name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @donor.last_name %>
+</p>
+
+<p>
+  <strong>Full name:</strong>
+  <%= @donor.full_name %>
+</p>
+
+<p>
+  <strong>Solicitation:</strong>
+  <%= @donor.solicitation %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @donor.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @donor.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @donor.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @donor.zip %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @donor.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @donor.email %>
+</p>
+
+<p>
+  <strong>Relationship:</strong>
+  <%= @donor.relationship %>
+</p>
+
+<p>
+  <strong>Singer:</strong>
+  <%= @donor.singer %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @donor.comment %>
+</p>
+
+<p>
+  <strong>Anonymous:</strong>
+  <%= @donor.anonymous %>
+</p>
+
+<p>
+  <strong>Update address:</strong>
+  <%= @donor.update_address %>
+</p>
+
+<p>
+  <strong>Do not contact:</strong>
+  <%= @donor.do_not_contact %>
+</p>
+
+<p>Last change was by <%= @donor.user.name %> at <%= @donor.updated_at %></p>
+
+<h2>Donations:</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Comment</th>
+      <th>Thanked</th>
+      <th>Is a Match</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donor.donations.each do |donation| %>
+      <tr>
+        <td><%= donation.date %></td>
+        <td><%= number_to_currency(donation.amount) %></td>
+        <td><%= donation.comment %></td>
+        <td><%= donation.thanked %></td>
+        <td><%= donation.match %></td>
+        <td><%= link_to 'Show', [@donor, donation] %></td>
+        <td><%= link_to 'Edit', edit_donor_donation_path(@donor, donation) %></td>
+        <td><%= link_to 'Destroy', [@donor, donation], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p>
+  <%= link_to 'Edit Donor', edit_donor_path(@donor) %> |
+  <%= link_to 'New Donation', new_donor_donation_path(@donor) %> |
+  <%= link_to 'All Donors', donors_path %>
+</p>

@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Donor:</strong>
+  <%= link_to @donor.full_name, @donor %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= number_to_currency(@donation.amount) %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @donation.date %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @donation.comment %>
+</p>
+
+<p>
+  <strong>Thanked:</strong>
+  <%= @donation.thanked %>
+</p>
+
+<p>
+  <strong>Is a Match:</strong>
+  <%= @donation.match %>
+</p>
+
+<p>Last change was by <%= @donation.user.name %> at <%= @donation.updated_at %></p>
+
+<%= link_to 'Edit', edit_donor_donation_path(@donor, @donation) %> |
+<%= link_to 'Donations', donations_path %>
