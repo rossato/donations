@@ -1,4 +1,4 @@
-class LoadSchema < ActiveRecord::Migration
+class LoadSchema < ActiveRecord::Migration[5.0]
   def change
     create_table "donations", force: :cascade do |t|
       t.integer  "donor_id"
