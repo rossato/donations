@@ -35,7 +35,7 @@ class DonorsController < ApplicationController
           circle = 1
         end
         
-        if circle > self[donor]
+        if circle >= self[donor]
           self[donor] = circle
         end
       end
