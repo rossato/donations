@@ -9,11 +9,12 @@ class Donor < ActiveRecord::Base
     return self.full_name <=> other.full_name
   end
 
-  # def ytd_donations
-  #   donations.where(date: (Time.new(Time.now.year)..Time.new(Time.now.year+1)))
-  # end
+  def ytd_donations(year = Time.now.year)
+    donations.where(date: (Time.new(year)..Time.new(year+1)))
+  end
 
-  # def ytd_amount
-  #   ytd_donations.select("sum(amount) as ytd_amount").take.ytd_amount
-  # end
+  def ytd_amount(year = Time.now.year)
+    ytd_donations(year).select("sum(amount) as ytd_amount").take.ytd_amount
+  end
+
 end

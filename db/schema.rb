@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,50 +12,51 @@
 
 ActiveRecord::Schema.define(version: 20170106022253) do
 
-  create_table "donations", force: true do |t|
-    t.integer  "donor_id"
-    t.integer  "user_id"
-    t.decimal  "amount"
-    t.date     "date"
-    t.string   "comment"
-    t.boolean  "thanked"
-    t.boolean  "match"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "donations", id: :serial, force: :cascade do |t|
+    t.integer "donor_id"
+    t.integer "user_id"
+    t.decimal "amount"
+    t.date "date"
+    t.string "comment"
+    t.boolean "thanked"
+    t.boolean "match"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["donor_id"], name: "index_donations_on_donor_id"
+    t.index ["user_id"], name: "index_donations_on_user_id"
   end
 
-  add_index "donations", ["donor_id"], name: "index_donations_on_donor_id"
-  add_index "donations", ["user_id"], name: "index_donations_on_user_id"
-
-  create_table "donors", force: true do |t|
-    t.integer  "user_id"
-    t.string   "last_name"
-    t.string   "full_name"
-    t.string   "solicitation"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "relationship"
-    t.string   "singer"
-    t.string   "comment"
-    t.boolean  "anonymous"
-    t.boolean  "update_address"
-    t.boolean  "do_not_contact"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+  create_table "donors", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "last_name"
+    t.string "full_name"
+    t.string "solicitation"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "phone"
+    t.string "email"
+    t.string "relationship"
+    t.string "singer"
+    t.string "comment"
+    t.boolean "anonymous"
+    t.boolean "update_address"
+    t.boolean "do_not_contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_donors_on_user_id"
   end
 
-  add_index "donors", ["user_id"], name: "index_donors_on_user_id"
-
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.boolean  "admin"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "password_digest"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

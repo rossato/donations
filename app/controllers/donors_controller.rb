@@ -56,7 +56,7 @@ class DonorsController < ApplicationController
         minimum_donation = 25
       end
 
-      qualifying_donors = Donor.select("donors.id, last_name, full_name, anonymous, sum(amount) as total_amount, #{year} as year").where(:"donations.date" => (Time.new(year)..Time.new(year+1))).group("donors.id").having("total_amount >= ?", minimum_donation).joins(:donations)
+      qualifying_donors = Donor.select("donors.id, last_name, full_name, anonymous, sum(amount) as total_amount, #{year} as year").where(:"donations.date" => (Time.new(year)..Time.new(year+1))).group("donors.id").having("sum(amount) >= ?", minimum_donation).joins(:donations)
       qualifying_donors.each {|donor| donors.update_donor(donor)}
     end
     @circles = Array.new(6){[]}
@@ -65,6 +65,24 @@ class DonorsController < ApplicationController
       @circles[circle-1] << donor
     end
     @circles.each(&:sort!)
+  end
+
+  def unthanked
+    @donors =
+      Donor.select("donors.id, full_name, solicitation, address, city, state, zip, unthanked_amount, unthanked_qty")
+        .from(Donation.select("donor_id, sum(amount) as unthanked_amount, count(*) as unthanked_qty").where(thanked: false).group(:donor_id))
+        .joins("INNER JOIN donors on donors.id = donor_id")
+      
+#      Donation.select(:full_name, :donor_id, :unthanked_amount).from(Donation.select("donor_id, sum(amount) as unthanked_amount").group(:donor_id).where(thanked: false)).joins("INNER JOIN donors ON donors.id = subquery.donor_id")
+
+    respond_to do |format|
+      format.html {render}
+      format.csv do
+        headers["Content-Type"] ||= 'text/csv'
+        headers["Content-Disposition"] = "attachment; filename=\"unthanked.csv\""
+        render :layout => false
+      end
+    end
   end
 
   def mailing_list

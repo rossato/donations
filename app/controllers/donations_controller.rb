@@ -32,22 +32,6 @@ class DonationsController < ApplicationController
     @donation = @donor.donations.new
   end
 
-  def unthanked
-    @donations =
-      Donation.select("donations.donor_id, last_name, full_name, solicitation, address, city, state, zip, donations.id, donations.date, donations.amount, sum(donations_2.amount) as ytd_amount")
-        .where(:"donations.thanked" => false, :"donations.match" => false).joins(:donor).order("donations.date ASC")
-        .joins("INNER JOIN donations AS donations_2 ON donations_2.donor_id = donors.id").where(:"donations_2.date" => Time.new(Time.now.year)..Time.new(Time.now.year+1)).group("donations.id")
-
-    respond_to do |format|
-      format.html {render}
-      format.csv do
-        headers["Content-Type"] ||= 'text/csv'
-        headers["Content-Disposition"] = "attachment; filename=\"unthanked.csv\""
-        render :layout => false
-      end
-    end
-  end
-
   def by_singer
     @donations = Donation.select("singer, donations.id, donor_id, full_name, date, amount").joins(:donor).where(match: false).order("donors.singer ASC, donations.date ASC")
     filter_by_year

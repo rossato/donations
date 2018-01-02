@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Unthanked Donations</h1>
+
+<p><em>(not including corporate matches)</em></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Donor</th>
+      <th>Unthanked Qty</th>
+      <th>Unthanked Total</th>
+      <th>Last year YTD</th>
+      <th>This year YTD</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donors.each do |donor| %>
+      <tr>
+        <td><%= link_to donor.full_name, donor %></td>
+        <td><%= donor.unthanked_qty %></td>
+        <td><%= number_to_currency(donor.unthanked_amount) %></td>
+        <td><%= number_to_currency(donor.ytd_amount(Time.now.year-1)) %></td>
+        <td><%= number_to_currency(donor.ytd_amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p>
+  <%= link_to 'Above data as a csv file', donors_unthanked_path(:csv) %> |
+  <%= link_to 'Home', root_path %>
+</p>

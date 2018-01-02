@@ -8,14 +8,15 @@ Rails.application.routes.draw do
   resources :users
 
   get 'donations' => 'donations#index'
-  get 'donations/unthanked' => 'donations#unthanked'
   get 'donations/by_singer' => 'donations#by_singer'
 
+  get 'donors/unthanked' => 'donors#unthanked'
   resources :donors do
     resources :donations
     get 'circles', on: :collection
     get 'mailing_list', on: :collection
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -17,10 +17,15 @@ default: &default
   database: <%= ENV["POSTGRESQL_DATABASE"] %>
 
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+#  adapter: sqlite3
+#  database: db/development.sqlite3
+#  pool: 5
+#  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  timeout: 5000
+  database: donations
+  
 
 test:
   adapter: sqlite3
