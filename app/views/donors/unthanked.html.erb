@@ -4,6 +4,7 @@
 
 <p><em>(not including corporate matches)</em></p>
 
+<%= form_tag('/donors/thank') do %>
 <table>
   <thead>
     <tr>
@@ -12,6 +13,7 @@
       <th>Unthanked Total</th>
       <th>Last year YTD</th>
       <th>This year YTD</th>
+      <th>Mark Thanked</th>
     </tr>
   </thead>
 
@@ -23,10 +25,20 @@
         <td><%= number_to_currency(donor.unthanked_amount) %></td>
         <td><%= number_to_currency(donor.ytd_amount(Time.now.year-1)) %></td>
         <td><%= number_to_currency(donor.ytd_amount) %></td>
+        <td><%= check_box_tag("donors[#{donor.id}][thanked]", "1", true) %></td>
       </tr>
     <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= submit_tag "Mark Thanked" %></td>
+    </tr>
   </tbody>
 </table>
+<% end %>
 <p>
   <%= link_to 'Above data as a csv file', donors_unthanked_path(:csv) %> |
   <%= link_to 'Home', root_path %>

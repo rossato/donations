@@ -36,6 +36,7 @@ class DonorsController < ApplicationController
         end
         
         if circle >= self[donor]
+          self.delete(donor)
           self[donor] = circle
         end
       end
@@ -72,8 +73,6 @@ class DonorsController < ApplicationController
       Donor.select("donors.id, full_name, solicitation, address, city, state, zip, unthanked_amount, unthanked_qty")
         .from(Donation.select("donor_id, sum(amount) as unthanked_amount, count(*) as unthanked_qty").where(thanked: false).group(:donor_id))
         .joins("INNER JOIN donors on donors.id = donor_id")
-      
-#      Donation.select(:full_name, :donor_id, :unthanked_amount).from(Donation.select("donor_id, sum(amount) as unthanked_amount").group(:donor_id).where(thanked: false)).joins("INNER JOIN donors ON donors.id = subquery.donor_id")
 
     respond_to do |format|
       format.html {render}
@@ -85,6 +84,17 @@ class DonorsController < ApplicationController
     end
   end
 
+  def thank
+    donors = params[:donors]
+    donations = Donation.where(:donor_id => donors.keys.map(&:to_i))
+
+    if donations.update(:thanked => true)
+      redirect_to donors_unthanked_url, :notice => 'Donations successfully updated.'
+    else
+      redirect_to donors_unthanked_url
+    end    
+  end
+  
   def mailing_list
     @donors = Donor.where(do_not_contact: false).order(last_name: :asc)
 

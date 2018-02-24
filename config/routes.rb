@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'donations/by_singer' => 'donations#by_singer'
 
   get 'donors/unthanked' => 'donors#unthanked'
+  post 'donors/thank' => 'donors#thank'
+
   resources :donors do
     resources :donations
     get 'circles', on: :collection
